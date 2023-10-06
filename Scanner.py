@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from Token import Token
 from TokenType import TokenType
 

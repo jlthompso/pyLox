@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 
 
 class Expr(ABC):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
     @abstractmethod
@@ -15,7 +15,7 @@ class Expr(ABC):
 
 
 class Visitor(ABC):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
     @abstractmethod
@@ -36,7 +36,7 @@ class Visitor(ABC):
 
 
 class Binary(Expr):
-    def __init__(self, left: Expr, operator: Token, right: Expr):
+    def __init__(self, left: Expr, operator: Token, right: Expr) -> None:
         super().__init__()
         self.left = left
         self.operator = operator
@@ -47,7 +47,7 @@ class Binary(Expr):
 
 
 class Grouping(Expr):
-    def __init__(self, expression: Expr):
+    def __init__(self, expression: Expr) -> None:
         super().__init__()
         self.expression = expression
 
@@ -56,7 +56,7 @@ class Grouping(Expr):
 
 
 class Literal(Expr):
-    def __init__(self, value: object):
+    def __init__(self, value: object) -> None:
         super().__init__()
         self.value = value
 
@@ -65,7 +65,7 @@ class Literal(Expr):
 
 
 class Unary(Expr):
-    def __init__(self, operator: Token, right: Expr):
+    def __init__(self, operator: Token, right: Expr) -> None:
         super().__init__()
         self.operator = operator
         self.right = right

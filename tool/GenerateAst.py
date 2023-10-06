@@ -28,7 +28,7 @@ class GenerateAst:
                 "",
                 "",
                 f"class {base_name}(ABC):",
-                "    def __init__(self):",
+                "    def __init__(self) -> None:",
                 "        super().__init__()",
                 "",
                 "    @abstractmethod",
@@ -37,7 +37,7 @@ class GenerateAst:
                 "",
                 "",
                 "class Visitor(ABC):",
-                "    def __init__(self):",
+                "    def __init__(self) -> None:",
                 "        super().__init__()",
             ])
 
@@ -67,7 +67,7 @@ class GenerateAst:
             "",
             "",
             f"class {class_name}({base_name}):",
-            f"    def __init__(self, {fields}):",
+            f"    def __init__(self, {fields}) -> None:",
             "        super().__init__()",
         ])
 

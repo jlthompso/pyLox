@@ -6,23 +6,23 @@ from TokenType import TokenType
 
 
 class AstPrinter(Expr.Visitor):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
-    def print(self, expr: Expr.Expr):
+    def print(self, expr: Expr.Expr) -> str:
         return expr.accept(self)
 
-    def visit_binary_expr(self, expr: Expr.Binary):
+    def visit_binary_expr(self, expr: Expr.Binary) -> str:
         return self.parenthesize(expr.operator.lexeme, expr.left, expr.right)
 
-    def visit_grouping_expr(self, expr: Expr.Grouping):
+    def visit_grouping_expr(self, expr: Expr.Grouping) -> str:
         return self.parenthesize("group", expr.expression)
 
-    def visit_literal_expr(self, expr: Expr.Literal):
+    def visit_literal_expr(self, expr: Expr.Literal) -> str:
         if expr.value is None: return "nil"
         return str(expr.value)
 
-    def visit_unary_expr(self, expr: Expr.Unary):
+    def visit_unary_expr(self, expr: Expr.Unary) -> str:
         return self.parenthesize(expr.operator.lexeme, expr.right)
 
     def parenthesize(self, name: str, *args: Expr.Expr) -> str:
