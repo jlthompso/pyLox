@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
-
 import argparse
 import sys
 from Scanner import Scanner
+from Token import Token
+from TokenType import TokenType
+from Parser import Parser
+from AstPrinter import AstPrinter
 
 
 class Lox:
@@ -28,11 +31,21 @@ class Lox:
     def _run(self, source: str) -> None:
         scanner = Scanner(source, self.error)
         tokens = scanner.scan_tokens()
-        for token in tokens:
-            print(token.to_string())
+        parser = Parser(self, tokens)
+        expression = parser.parse()
+        if self.had_error: return
+        print(AstPrinter().print(expression))
 
-    def error(self, line: int, message: str) -> None:
-        self._report(line, "", message)
+    def error(self, loc: Token | int, message: str) -> None:
+        if isinstance(loc, Token):
+            token = loc
+            if token.type == TokenType.EOF:
+                self._report(token.line, " at end", message)
+            else:
+                self._report(token.line, f" at '{token.lexeme}'", message)
+        else:
+            line = loc
+            self._report(line, "", message)
 
     def _report(self, line: int, where: str, message: str):
         print(f"[line {line}] Error{where}: {message}", file=sys.stderr)
